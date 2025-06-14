@@ -3,3 +3,4 @@ pandasai
 openai
 firebase-admin
 Flask
+pyyaml
