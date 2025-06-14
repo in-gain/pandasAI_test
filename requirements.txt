@@ -1,0 +1,5 @@
+pandas
+pandasai
+openai
+firebase-admin
+Flask
