@@ -1,5 +1,5 @@
 import os
-from typing import List, Any
+from typing import List, Any, Optional
 
 import pandas as pd
 from pandasai import PandasAI
@@ -30,6 +30,11 @@ def fetch_customer_data(collection: str = "customers") -> pd.DataFrame:
         records.append(record)
     return pd.DataFrame(records)
 
+def fetch_sales_data_csv(path: str) -> pd.DataFrame:
+    """Read sample sales CSV for local testing."""
+    if not os.path.exists(path):
+        raise FileNotFoundError(f"{path} が見つかりません")
+    return pd.read_csv(path)
 
 def analyze_with_pandasai(question: str, df: pd.DataFrame) -> str:
     """Use PandasAI to answer question about the DataFrame."""
@@ -40,7 +45,11 @@ def analyze_with_pandasai(question: str, df: pd.DataFrame) -> str:
 
 def query_llm(question: str) -> str:
     """Orchestrate data fetching and analysis using PandasAI."""
-    data = fetch_customer_data()
+    csv_path: Optional[str] = os.environ.get("SALES_DATA_CSV")
+    if csv_path:
+        data = fetch_sales_data_csv(csv_path)
+    else:
+        data = fetch_customer_data()
     answer = analyze_with_pandasai(question, data)
     return answer
 

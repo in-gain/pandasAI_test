@@ -37,3 +37,13 @@ python webapp.py
 ```
 
 ブラウザで `http://localhost:5000` にアクセスしてチャットボットと対話してください。
+
+### ローカルテスト用データ
+Firebase 環境を用意できない場合は、リポジトリに含まれる `sample_sales.csv` を
+使って動作を確認できます。環境変数 `SALES_DATA_CSV` に CSV ファイルのパスを
+指定すると、Firestore ではなくそのデータを読み込んで分析を行います。
+
+```bash
+export SALES_DATA_CSV=sample_sales.csv
+python app.py
+```
