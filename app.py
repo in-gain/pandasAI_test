@@ -2,8 +2,9 @@ import os
 from typing import List, Any, Optional
 
 import pandas as pd
-from pandasai import PandasAI
+from pandasai import SmartDataframe
 from pandasai.llm.openai import OpenAI
+from pandasai.schemas.df_config import Config
 import firebase_admin
 from firebase_admin import credentials, firestore
 
@@ -39,8 +40,9 @@ def fetch_sales_data_csv(path: str) -> pd.DataFrame:
 def analyze_with_pandasai(question: str, df: pd.DataFrame) -> str:
     """Use PandasAI to answer question about the DataFrame."""
     llm = OpenAI(api_token=os.environ.get("OPENAI_API_KEY"))
-    pandas_ai = PandasAI(llm)
-    return pandas_ai.run(df, prompt=question)
+    config = Config(llm=llm)
+    smart_df = SmartDataframe(df, config=config)
+    return smart_df.chat(question)
 
 
 def query_llm(question: str) -> str:
