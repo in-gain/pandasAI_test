@@ -1,6 +1,15 @@
-pandas
-pandasai
 openai
 firebase-admin
 Flask
 pyyaml
+python-dotenv
+pandas==2.1.4
+pandasai==2.3.0
+duckdb
+faker
+matplotlib
+scipy
+sqlalchemy
+sqlglot==25.0.3
+pillow
+astor
