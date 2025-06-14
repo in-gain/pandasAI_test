@@ -41,7 +41,12 @@ def analyze_with_pandasai(question: str, df: pd.DataFrame) -> str:
     """Use PandasAI to answer question about the DataFrame."""
     llm = OpenAI(api_token=os.environ.get("OPENAI_API_KEY"))
     config = Config(llm=llm)
-    smart_df = SmartDataframe(df, config=config)
+    # Add a system prompt requesting Japanese responses
+    smart_df = SmartDataframe(
+        df,
+        config=config,
+        description="日本語で出力してください。",
+    )
     return smart_df.chat(question)
 
 
