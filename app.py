@@ -30,13 +30,11 @@ def fetch_customer_data(collection: str = "customers") -> pd.DataFrame:
         records.append(record)
     return pd.DataFrame(records)
 
-
 def fetch_sales_data_csv(path: str) -> pd.DataFrame:
     """Read sample sales CSV for local testing."""
     if not os.path.exists(path):
         raise FileNotFoundError(f"{path} が見つかりません")
     return pd.read_csv(path)
-
 
 def analyze_with_pandasai(question: str, df: pd.DataFrame) -> str:
     """Use PandasAI to answer question about the DataFrame."""
